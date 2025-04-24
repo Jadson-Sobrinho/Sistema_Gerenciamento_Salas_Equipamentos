@@ -17,7 +17,7 @@ const usuarioSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: true
+    required: True
   },
   hashed_password: {
     type: String,
