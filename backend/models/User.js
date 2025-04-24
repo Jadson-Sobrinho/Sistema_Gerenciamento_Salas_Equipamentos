@@ -23,13 +23,13 @@ const usuarioSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  is_Active: {
+  is_active: {
     type: Boolean,
     required: true
   }
 });
 
 // Criando o model a partir do schema
-const Usuario = mongoose.model('Usuario', usuarioSchema);
+const Usuario = mongoose.model('User', usuarioSchema, 'User');
 
 module.exports = Usuario;
