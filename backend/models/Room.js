@@ -59,6 +59,6 @@ salaSchema.pre('save', function (next) {
   next();
 });
 
-const Sala = mongoose.model('Sala', salaSchema);
+const Sala = mongoose.model('Resource', salaSchema, 'Resource');
 
 module.exports = Sala;

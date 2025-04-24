@@ -52,6 +52,6 @@ reservaSchema.pre('save', function (next) {
   next();
 });
 
-const Reserva = mongoose.model('Reserva', reservaSchema);
+const Reserva = mongoose.model('Reserve', reservaSchema, 'Reserve');
 
 module.exports = Reserva;
