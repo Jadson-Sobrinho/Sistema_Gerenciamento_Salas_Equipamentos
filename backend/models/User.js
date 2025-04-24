@@ -17,15 +17,15 @@ const usuarioSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: True
+    required: true
   },
   hashed_password: {
     type: String,
-    required: True
+    required: true
   },
   is_Active: {
     type: Boolean,
-    required: True
+    required: true
   }
 });
 
