@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 async function connectDB() {
     try{
-        await mongoose.connect('mongodb://localhost:27017/reserva');
+        await mongoose.connect('mongodb://localhost:27017/reserve');
 
         console.log("Conectado ao banco!");
     } catch (error) {
