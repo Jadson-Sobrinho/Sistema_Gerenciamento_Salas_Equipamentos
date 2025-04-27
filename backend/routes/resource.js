@@ -26,4 +26,50 @@ router.get('/:room_number', async (req, res) => {
     }
   });
 
+
+// POST /room - cria nova sala
+router.post('/', async (req, res) => {
+    try {
+        console.log("Rota /room [POST]");
+      const {
+        name,
+        room_number,
+        type,
+        capacity,
+        tags,
+        module,
+        floor,
+        status,
+        available_hours,
+        description
+      } = req.body;
+      
+      console.log(req.body);
+
+      const newRoom = new Sala({
+        name,
+        room_number,
+        type,
+        capacity,
+        tags,
+        module,
+        floor,
+        status,
+        available_hours,
+        description
+      });
+      
+
+      const savedRoom = await newRoom.save();
+      res.status(201).json(savedRoom);
+  
+    } catch (error) {
+      if (error.code === 11000) {
+        res.status(400).json({ message: 'Número da sala já está em uso.' });
+      } else {
+        res.status(500).json({ message: 'Erro ao criar sala.', error });
+      }
+    }
+  });
+  
 module.exports = router;
