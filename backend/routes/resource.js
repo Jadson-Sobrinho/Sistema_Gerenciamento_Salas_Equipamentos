@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 // [GET] /room/:number - Busca uma sala pelo numero
 router.get('/:room_number', async (req, res) => {
     try {
-      console.log("rota number chamada")
+      console.log("rota number chamada");
       const salas = await Sala.findOne({ room_number: req.params.room_number });
       console.log(salas);
       if (!salas) return res.status(404).json({ erro: 'Sala não encontrada.' });
