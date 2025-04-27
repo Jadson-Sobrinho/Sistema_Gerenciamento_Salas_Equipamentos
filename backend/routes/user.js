@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 // [GET] /user/:name - Busca um usuário pelo nome
 router.get('/:name', async (req, res) => {
   try {
-    console.log("rota name chamada")
+    console.log("rota name chamada");
     const usuario = await Usuario.findOne({ name: req.params.name });
     if (!usuario) return res.status(404).json({ erro: 'Usuário não encontrado.' });
     res.json(usuario);
