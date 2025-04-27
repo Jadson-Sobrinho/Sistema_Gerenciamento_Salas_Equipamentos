@@ -1,17 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Sala = require('../models/Room');
+const resourceController = require('../controllers/resourceController');
 
-router.get('/', async (req, res) => {
-    try {
-        console.log("Rota /sala chamada");
-        const salas = await Sala.find();
-        console.log(salas);
-        res.send(salas);
-    } catch (err) {
-        res.status(500).json({ erro: 'Erro ao buscar salas.' });
-    }
-});
+// [GET] /room- Busca todas as salas
+router.get('/', resourceController.getAllRooms);
 
+// [GET] /room/:number - Busca uma sala pelo numero
+router.get('/:room_number', resourceController.getRoomByNumber);
 
+// POST /room - cria nova sala
+router.post('/', resourceController.registerRoom);
+  
 module.exports = router;
