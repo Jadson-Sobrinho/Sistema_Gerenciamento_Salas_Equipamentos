@@ -63,3 +63,40 @@ exports.resgisterUser = async (req, res) => {
     }
   }
 };
+
+exports.updateUser = async (req, res) => {
+  try {
+    const {
+      name,
+      email,
+      role,
+      phone,
+      hashed_password,
+      is_active
+    } = req.body;
+
+    console.log(req.body);
+
+    const usuario = await Usuario.updateOne(
+      { email: email }, // critério de busca
+      {
+        name,
+        role,
+        phone,
+        hashed_password,
+        is_active
+      },
+      { new: true }
+    );
+
+    if (usuario.modifiedCount === 0) {
+      return res.status(404).json({ message: 'Usuário não encontrado ou dados idênticos.' });
+    }
+
+    res.status(200).json({ message: 'Usuário atualizado com sucesso.' });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Erro ao atualizar usuário.' });
+  }
+};
