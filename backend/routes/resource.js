@@ -11,5 +11,8 @@ router.get('/:room_number', resourceController.getRoomByNumber);
 
 // POST /room - cria nova sala
 router.post('/', resourceController.registerRoom);
+
+// Patch /room - Atualizar os dados da sala
+router.patch('/', resourceController.updateRoom);
   
 module.exports = router;

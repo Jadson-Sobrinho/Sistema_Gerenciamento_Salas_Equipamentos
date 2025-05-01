@@ -11,6 +11,9 @@ router.get('/:name', userController.getByName);
 
 // [POST] /user - cria novo usuário
 router.post('/', userController.resgisterUser);
+
+// [PATCH] /user - Atualiza dados de um usuario
+router.patch('/', userController.updateUser);
   
 
 module.exports = router;

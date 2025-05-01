@@ -71,4 +71,53 @@ exports.registerRoom = async (req, res) => {
       }
     }
   };
+
+
+  exports.updateRoom = async (req, res) => {
+    try {
+      const {
+        name,
+        room_number,
+        type,
+        capacity,
+        tags,
+        module,
+        floor,
+        status,
+        available_hours,
+        description
+      } = req.body;
+      
+      console.log(req.body);
+
+      const room = await Sala.updateOne(
+        {room_number: room_number}, 
+        {
+          name,
+          room_number,
+          type,
+          capacity,
+          tags,
+          module,
+          floor,
+          status,
+          available_hours,
+          description
+        }, { new: true }
+      );
+      
+      if (room.modifiedCount === 0) {
+        return res.status(404).json({ message: 'Sala não encontrada ou dados idênticos.' });
+      }
+
+      res.status(200).json({ message: 'Sala atualizada com sucesso.' });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Erro ao atualizar sala.', error });
+      
+    }
+  };
+
+
   
