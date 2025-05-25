@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Usuario = require('../models/User');
+const bcrypt = require('bcrypt');
 
 
 exports.getAllUsers = async (req, res) => {
@@ -29,38 +30,54 @@ exports.getByName = async (req, res) => {
 // [POST] /user - cria novo usuário
 exports.registerUser = async (req, res) => {
   try {
-    const {
-      name,
-      email,
-      role,
-      phone,
-      hashed_password,
-      is_active
-    } = req.body;
+    const { name, email, role, phone, hashed_password, is_active } = req.body;
 
-    console.log(req.body);
+    // Validação de campos obrigatórios
+    if (!name || !email || !hashed_password) {
+      return res.status(400).json({ message: 'Nome, email e senha são obrigatórios.' });
+    }
 
-    // Criação de novo usuário
+    // Verifica duplicidade de email
+    const existing = await Usuario.findOne({ email });
+    if (existing) {
+      return res.status(409).json({ message: 'Email já está em uso.' });
+    }
+
+    // Hash da senha recebida em hashed_password
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(hashed_password, saltRounds);
+
+    // Criação de novo usuário com senha já hasheada
     const newUser = new Usuario({
       name,
       email,
       role,
       phone,
-      hashed_password,
-      is_active
+      hashed_password: passwordHash,
+      is_active: is_active !== undefined ? is_active : true
     });
 
     // Salvando no banco
     const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+
+    // Retorna dados do usuário sem expor a senha
+    const { _id, name: savedName, email: savedEmail, role: savedRole, phone: savedPhone, is_active: savedActive } = savedUser;
+    return res.status(201).json({
+      id: _id,
+      name: savedName,
+      email: savedEmail,
+      role: savedRole,
+      phone: savedPhone,
+      is_active: savedActive
+    });
 
   } catch (error) {
-    // Tratamento de erro, como email duplicado
+    // Tratamento de email duplicado
     if (error.code === 11000) {
-      res.status(400).json({ message: 'Email já está em uso.' });
-    } else {
-      console.log(error);
+      return res.status(400).json({ message: 'Email já está em uso.' });
     }
+    console.error('Erro ao cadastrar usuário:', error);
+    return res.status(500).json({ message: 'Erro interno no servidor.' });
   }
 };
 
