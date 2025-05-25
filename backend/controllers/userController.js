@@ -27,7 +27,7 @@ exports.getByName = async (req, res) => {
 };
 
 // [POST] /user - cria novo usuário
-exports.resgisterUser = async (req, res) => {
+exports.registerUser = async (req, res) => {
   try {
     const {
       name,

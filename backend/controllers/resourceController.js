@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const Sala = require('../models/Room');
 
 exports.getAllRooms = async (req, res) => {
@@ -30,7 +29,7 @@ exports.getRoomByNumber = async (req, res) => {
 // POST /room - cria nova sala
 exports.registerRoom = async (req, res) => {
     try {
-        console.log("Rota /room [POST]");
+      console.log("Rota /room [POST]");
       const {
         name,
         room_number,
@@ -118,6 +117,5 @@ exports.registerRoom = async (req, res) => {
       
     }
   };
-
 
   

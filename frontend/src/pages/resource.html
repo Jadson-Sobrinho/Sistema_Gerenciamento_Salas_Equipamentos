@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Sala</title>
+  <link rel="Stylesheet" href="styles/resource.css">
+</head>
+<body>
+
+ <div class="container">
+    <h1>Nova Sala</h1>
+    <form id="room-form">
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div class="form-group">
+        <label for="room_number">Número da Sala</label>
+        <input type="text" id="room_number" name="room_number" required />
+      </div>
+      <div class="form-group">
+        <label for="type">Tipo</label>
+        <select id="type" name="type" required>
+          <option value="sala">Sala</option>
+          <option value="laboratório">Laboratório</option>
+          <option value="auditório">Auditório</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="capacity">Capacidade</label>
+        <input type="number" id="capacity" name="capacity" required />
+      </div>
+      <div class="form-group">
+        <label for="tags">Tags (separadas por vírgula)</label>
+        <input type="text" id="tags" name="tags" placeholder="ex: informática,multimídia" />
+      </div>
+      <div class="form-group">
+        <label for="module">Módulo</label>
+        <input type="text" id="module" name="module" required />
+      </div>
+      <div class="form-group">
+        <label for="floor">Andar</label>
+        <input type="number" id="floor" name="floor" required />
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="disponível">Disponível</option>
+          <option value="indisponível">Indisponível</option>
+          <option value="manutenção">Manutenção</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="available_hours">Horários Disponíveis (ex: 08:00-12:00)</label>
+        <input type="text" id="available_hours" name="available_hours" placeholder="separados por vírgula" />
+      </div>
+      <div class="form-group">
+        <label for="description">Descrição</label>
+        <textarea id="description" name="description"></textarea>
+      </div>
+      <button type="submit">Cadastrar Sala</button>
+    </form>
+    <div class="message" id="room-message"></div>
+  </div>
+
+  <script src="script/resource.js"></script>
+
+</body>
+</html>

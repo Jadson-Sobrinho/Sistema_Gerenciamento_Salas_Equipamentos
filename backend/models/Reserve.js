@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const reservaSchema = new mongoose.Schema({
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario', // Referência ao model de usuário
+    ref: 'User',
     required: true
   },
   resource_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Sala', // Ou o model que representa o recurso (ex: Sala, Equipamento etc.)
+    ref: 'Room',
     required: true
   },
   start_at: {
@@ -52,6 +52,6 @@ reservaSchema.pre('save', function (next) {
   next();
 });
 
-const Reserva = mongoose.model('Reserve', reservaSchema, 'Reserve');
+const Reserve = mongoose.model('Reserve', reservaSchema, 'Reserve');
 
-module.exports = Reserva;
+module.exports = Reserve;

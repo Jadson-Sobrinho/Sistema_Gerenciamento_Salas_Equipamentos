@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Usuario = require('../models/User');
 const userController = require("../controllers/userController");
 
 // [GET] /user - Lista todos os usuários
@@ -10,7 +9,7 @@ router.get('/', userController.getAllUsers);
 router.get('/:name', userController.getByName);
 
 // [POST] /user - cria novo usuário
-router.post('/', userController.resgisterUser);
+router.post('/', userController.registerUser);
 
 // [PATCH] /user - Atualiza dados de um usuario
 router.patch('/', userController.updateUser);
