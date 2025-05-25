@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Sala</title>
+  <link rel="Stylesheet" href="styles/user.css">
+</head>
+
+<body>
+
+    <div class="container">
+    <h1>Cadastro de Usuário</h1>
+    <form id="user-form">
+        <div class="form-group">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+        <label for="role">Função:</label>
+        <input type="text" id="role" name="role" required>
+        </div>
+
+        <div class="form-group">
+        <label for="phone">Telefone:</label>
+        <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+        <label for="hashed_password">Senha (Hash):</label>
+        <input type="password" id="hashed_password" name="hashed_password" required>
+        </div>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <p id="user-message" class="message"></p>
+    </div>
+  <script src="script/user.js"></script>
+</body>
+</html>
