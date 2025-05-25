@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Reservas</title>
+  <link rel="stylesheet" href="styles/index.css" />
+  <!-- Fonte de ícones Font Awesome -->
+  <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="nav-left">
+        <ul>
+          <li><a href="resource.html"><i class="fas fa-door-open"></i> Cadastrar Recurso</a></li>
+          <li><a href="error404.html"><i class="fas fa-door-open"></i> Solicitações de Agendamento</a></li>
+          <li><a href="reserve.html"><i class="fas fa-calendar-check"></i> Fazer Reserva</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-center">
+        <form class="search-bar" action="#" method="get">
+          <input type="text" name="q" placeholder="Digite o nome de algum recurso (ex: Sala 31)">
+          <button type="submit"><i class="fas fa-search"></i>Pesquisar</button>
+        </form>
+      </div>
+
+      <div class="nav-right">
+        <a href="error404.html"><i class="fas fa-user-plus"></i> Meus Agendamentos</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="fade-in">Bem-vindo ao Sistema de Agendamento</h1>
+    <p class="fade-in">Selecione uma opção no menu acima para começar.</p>
+
+    <div class="card fade-in">
+      <h2>Agendar Sala</h2>
+      <p>Selecione a sala e o horário desejado.</p>
+      <a class="action-btn" href="reserve.html">
+        <i class="fas fa-calendar-alt"></i> Agendar Sala
+      </a>
+    </div>
+
+    <div class="card fade-in">
+      <h2>Agendar Equipamento</h2>
+      <p>Selecione o equipamento e horário desejado.</p>
+      <a class="action-btn" href="reserve.html">
+        <i class="fas fa-calendar-alt"></i> Agendar Equipamento
+      </a>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

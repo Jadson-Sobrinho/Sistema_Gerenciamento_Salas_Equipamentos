@@ -4,10 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro de Reserva</title>
-  <link rel="Stylesheet" href="styles/reserve.css">
-
+  <link rel="stylesheet" href="styles/reserve.css">
 </head>
-
 <body>
   <div class="container">
     <h1>Nova Reserva</h1>
@@ -17,8 +15,26 @@
         <input type="text" id="user_id" name="user_id" required />
       </div>
       <div class="form-group">
-        <label for="resource_id">Resource ID</label>
-        <input type="text" id="resource_id" name="resource_id" required />
+        <label for="resource_type">Tipo de Recurso</label>
+        <select id="resource_type" name="resource_type" required>
+          <option value="" disabled selected>Selecione um tipo</option>
+          <option value="sala">Sala</option>
+          <option value="equipamento">Equipamento</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="resource_id">Recurso</label>
+        <select id="resource_id" name="resource_id" required>
+          <option value="">Selecione um recurso</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <input type="text" id="status" name="status" disabled />
+      </div>
+      <div class="form-group">
+        <label for="available_hours">Horários Disponíveis</label>
+        <textarea id="available_hours" name="available_hours" rows="3" disabled></textarea>
       </div>
       <div class="form-group">
         <label for="start_at">Início</label>
