@@ -29,6 +29,10 @@ app.get('/login-form', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/src/pages/login.html'));
 });
 
+app.get('/userReserves-form', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/src/pages/userReserves.html'));
+});
+
 app.use('/auth', authRoute);
 app.use('/user', usuariosRoute);
 app.use('/room', salasRoute);

@@ -28,13 +28,17 @@ const Reserve = require('../models/Reserve');
 
 };
 
-exports.getAllReserves = async (req, res) => {
+exports.getUserReserves = async (req, res) => {
     try {
-        console.log("Rota /Reserve chamada");
-        const reserves = await Reserve.find();
+        const user_id = req.user.sub; 
+        console.log(`Rota /reserve chamada pelo usuário ${user_id}`);
+
+        const reserves = await Reserve.find({ user_id: user_id });
+
         console.log(reserves);
-        res.send(reserves);
+        res.json(reserves);
     } catch (err) {
-        res.status(500).json({ erro: 'Erro ao buscar Reservas.' });
+        console.error(err);
+        res.status(500).json({ erro: 'Erro ao buscar reservas.' });
     }
 };
