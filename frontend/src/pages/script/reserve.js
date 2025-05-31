@@ -1,7 +1,25 @@
+// reserve.js
 const API_URL = 'http://localhost:3000';
 let allResources = [];
 
+// Pega o token do usuário e inicializa userId
+const token = localStorage.getItem('authToken');
+let currentUserId = null;
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Decodifica o JWT para extrair userId (campo sub)
+  if (token) {
+    try {
+      const [, base64Payload] = token.split('.');
+      const payload = JSON.parse(atob(base64Payload));
+      // Ajuste conforme o campo usado no payload do seu JWT
+      currentUserId = payload.sub || payload.userId || payload.id;
+      console.log('Current User ID:', currentUserId);
+    } catch (e) {
+      console.error('Não foi possível decodificar o token JWT:', e);
+    }
+  }
+
   const typeSelect = document.getElementById('resource_type');
   const resourceSelect = document.getElementById('resource_id');
   const statusInput = document.getElementById('status');
@@ -23,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Fetch resources
+  // Busca recursos disponíveis
   fetch(`${API_URL}/room`)
     .then(res => res.json())
     .then(data => {
@@ -34,20 +52,17 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Erro ao buscar recursos:', err);
     });
 
-  // On type change, filter options and clear details
+  // Filtra recursos por tipo
   typeSelect.addEventListener('change', () => {
-    const selectedType = typeSelect.value;
-    const filtered = allResources.filter(r => r.type === selectedType);
+    const filtered = allResources.filter(r => r.type === typeSelect.value);
     populateSelect(resourceSelect, filtered, 'Selecione um recurso');
-    // Clear status and hours
     statusInput.value = '';
     hoursTextarea.value = '';
   });
 
-  // On resource select change, fill status and available_hours
+  // Preenche detalhes do recurso selecionado
   resourceSelect.addEventListener('change', () => {
-    const selectedId = resourceSelect.value;
-    const resource = allResources.find(r => (r._id || r.id) === selectedId);
+    const resource = allResources.find(r => (r._id || r.id) === resourceSelect.value);
     if (resource) {
       statusInput.value = resource.status || '';
       hoursTextarea.value = Array.isArray(resource.available_hours)
@@ -59,21 +74,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Form submission
+  // Submissão do formulário de reserva
   document.getElementById('reserva-form').addEventListener('submit', async function(event) {
     event.preventDefault();
+
+    if (!currentUserId) {
+      alert('Usuário não autenticado!');
+      return;
+    }
+
     const payload = {
-      user_id: document.getElementById('user_id').value,
+      user_id:       currentUserId,
       resource_type: typeSelect.value,
-      resource_id: resourceSelect.value,
-      start_at: new Date(document.getElementById('start_at').value).toISOString(),
-      end_at: new Date(document.getElementById('end_at').value).toISOString()
+      resource_id:   resourceSelect.value,
+      start_at:      new Date(document.getElementById('start_at').value).toISOString(),
+      end_at:        new Date(document.getElementById('end_at').value).toISOString()
     };
 
     try {
       const response = await fetch(`${API_URL}/reserve`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(payload)
       });
 
@@ -84,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
         msgEl.style.color = 'green';
         msgEl.textContent = 'Reserva cadastrada com sucesso!';
         this.reset();
-        // Clear details
         statusInput.value = '';
         hoursTextarea.value = '';
       } else {
