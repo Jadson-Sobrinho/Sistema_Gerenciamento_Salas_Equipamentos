@@ -42,3 +42,17 @@ exports.getUserReserves = async (req, res) => {
         res.status(500).json({ erro: 'Erro ao buscar reservas.' });
     }
 };
+
+exports.getReservesToApprove = async (req, res) => {
+    try {
+        const reserves = await Reserve.aggregate([
+        {$match: {status: 'pendente'}}
+        ]);
+
+        console.log(reserves);
+        res.send(reserves);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ erro: 'Erro ao buscar reservas.' });
+    }
+};
