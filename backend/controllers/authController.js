@@ -30,7 +30,7 @@ exports.loginUser = async (req, res) => {
       process.env.JWT_SECRET || 'sua_chave_secreta',
       { expiresIn: '1h' }
     );
-
+    console.log(token);
     //Retornar token e dados públicos do usuário
     return res.json({
       token,
