@@ -45,9 +45,9 @@ exports.getUserReserves = async (req, res) => {
 
 exports.getReservesToApprove = async (req, res) => {
     try {
-        const reserves = await Reserve.aggregate([
-        {$match: {status: 'pendente'}}
-        ]);
+        const reserves = await Reserve.find({status: 'pendente'})
+            .populate('resource_id', 'name')
+            .populate('user_id', 'name');
 
         console.log(reserves);
         res.send(reserves);
