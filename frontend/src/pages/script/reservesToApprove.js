@@ -69,9 +69,17 @@ document.addEventListener('DOMContentLoaded', () => {
         botaoDeferir.textContent = 'Deferir';
         botaoDeferir.classList.add('deferir');
 
+        botaoDeferir.addEventListener('click', async() => {
+          await alterarStatusReserva(reserva._id, 'aprovada');
+        });
+
         const botaoIndeferir = document.createElement('button');
         botaoIndeferir.textContent = 'Indeferir';
         botaoIndeferir.classList.add('indeferir');
+
+        botaoIndeferir.addEventListener('click', async() => {
+          await alterarStatusReserva(reserva._id, 'rejeitada');
+        });
 
         botoesDiv.appendChild(botaoDeferir);
         botoesDiv.appendChild(botaoIndeferir);
@@ -89,12 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Função para alterar o status da reserva
-  async function alterarStatusReserva(reservaId, novoStatus) {
+  async function alterarStatusReserva(reserva_id, novoStatus) {
+    const token = localStorage.getItem('authToken');
     try {
-      const response = await fetch(`${API_URL}/${reservaId}/status`, {
+      const response = await fetch(`${API_URL}/${reserva_id}/status`, {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ status: novoStatus })
       });
@@ -105,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       alert(`Reserva ${novoStatus}!`);
       reservesToApprove();  // Atualiza a lista
+      
 
     } catch (error) {
       console.error('Erro ao alterar status da reserva:', error);

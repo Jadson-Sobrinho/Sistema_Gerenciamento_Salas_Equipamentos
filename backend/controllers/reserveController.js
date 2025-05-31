@@ -56,3 +56,28 @@ exports.getReservesToApprove = async (req, res) => {
         res.status(500).json({ erro: 'Erro ao buscar reservas.' });
     }
 };
+
+exports.updateReserveStatus = async (req, res) => {
+    try {
+        const { id }  = req.params;
+        const { status, approval } = req.body;
+
+        const updatedReserve = await Reserve.findByIdAndUpdate(
+            id,
+            {
+                $set: {
+                    status: status, 
+                    approval: approval,
+                    updated_at: new Date()
+                }
+            },
+            { new: true }
+        );
+
+        res.json(updatedReserve);
+
+    } catch (error) {
+        console.error('Erro ao atualizar status da reserva:', error);
+        res.status(500).json({ error: 'Erro ao atualizar status da reserva.'});
+    }
+};
