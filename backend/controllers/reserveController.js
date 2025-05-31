@@ -33,7 +33,7 @@ exports.getUserReserves = async (req, res) => {
         const user_id = req.user.sub; 
         console.log(`Rota /reserve chamada pelo usuário ${user_id}`);
 
-        const reserves = await Reserve.find({ user_id: user_id });
+        const reserves = await Reserve.find({ user_id: user_id }).populate('resource_id', 'name');
 
         console.log(reserves);
         res.json(reserves);
