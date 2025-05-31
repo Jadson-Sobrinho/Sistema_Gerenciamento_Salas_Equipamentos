@@ -18,15 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Cria uma tabela (ou um <div> “card”) PARA CADA reserva
       reservas.forEach(reserva => {
-        // Exemplo usando uma tabela pequena para cada reserva:
         const tabela = document.createElement('table');
         tabela.style.borderCollapse = 'collapse';
         tabela.style.marginBottom = '12px';
         tabela.style.width = '100%';
+        tabela.style.border = '1px solid #ccc';
 
-        // Função auxiliar para criar uma linha na tabela
         function novaLinha(label, valor) {
           const tr = document.createElement('tr');
           const th = document.createElement('th');
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
           return tr;
         }
 
-        // Formata datas
         function formatarData(isoString) {
           const date = new Date(isoString);
           const options = {
@@ -51,10 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
           return date.toLocaleString('pt-BR', options);
         }
 
-        // Monta as linhas dessa reserva
-        tabela.appendChild(novaLinha('ID da Reserva', reserva._id));
-        tabela.appendChild(novaLinha('ID do Usuário', reserva.user_id));
-        tabela.appendChild(novaLinha('ID do Recurso', reserva.resource_id));
+        tabela.appendChild(novaLinha('Usuário', reserva.user_id.name));
+        tabela.appendChild(novaLinha('Recurso', reserva.resource_id.name));
         tabela.appendChild(novaLinha('Início', formatarData(reserva.start_at)));
         tabela.appendChild(novaLinha('Fim', formatarData(reserva.end_at)));
         tabela.appendChild(novaLinha(
@@ -67,8 +62,23 @@ document.addEventListener('DOMContentLoaded', () => {
         tabela.appendChild(novaLinha('Criado em', formatarData(reserva.created_at)));
         tabela.appendChild(novaLinha('Atualizado em', formatarData(reserva.updated_at)));
 
-        // Por fim, adiciona essa tabela ao container
+        const botoesDiv = document.createElement('div');
+        botoesDiv.classList.add('buttons');
+
+        const botaoDeferir = document.createElement('button');
+        botaoDeferir.textContent = 'Deferir';
+        botaoDeferir.classList.add('deferir');
+
+        const botaoIndeferir = document.createElement('button');
+        botaoIndeferir.textContent = 'Indeferir';
+        botaoIndeferir.classList.add('indeferir');
+
+        botoesDiv.appendChild(botaoDeferir);
+        botoesDiv.appendChild(botaoIndeferir);
+
+        // Adiciona tabela e botões ao container
         container.appendChild(tabela);
+        container.appendChild(botoesDiv);
       });
 
     } catch (error) {
@@ -78,6 +88,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Lembre-se de chamar a função:
+  // Função para alterar o status da reserva
+  async function alterarStatusReserva(reservaId, novoStatus) {
+    try {
+      const response = await fetch(`${API_URL}/${reservaId}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: novoStatus })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao alterar status: ${response.statusText}`);
+      }
+
+      alert(`Reserva ${novoStatus}!`);
+      reservesToApprove();  // Atualiza a lista
+
+    } catch (error) {
+      console.error('Erro ao alterar status da reserva:', error);
+      alert('Erro ao alterar status da reserva.');
+    }
+  }
+
+  // Chama a função para carregar as reservas
   reservesToApprove();
 });
