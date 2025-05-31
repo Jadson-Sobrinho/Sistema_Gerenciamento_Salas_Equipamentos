@@ -8,4 +8,8 @@ router.post('/', auth.authToken, reserve.Reserve);
 
 router.get('/', auth.authToken, reserve.getUserReserves);
 
+router.get('/approve', reserve.getReservesToApprove);
+
+router.patch('/:id/status', auth.authToken, reserve.updateReserveStatus);
+
 module.exports = router;

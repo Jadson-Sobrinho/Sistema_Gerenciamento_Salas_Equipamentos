@@ -33,12 +33,51 @@ exports.getUserReserves = async (req, res) => {
         const user_id = req.user.sub; 
         console.log(`Rota /reserve chamada pelo usuário ${user_id}`);
 
-        const reserves = await Reserve.find({ user_id: user_id });
+        const reserves = await Reserve.find({ user_id: user_id }).populate('resource_id', 'name');
 
         console.log(reserves);
         res.json(reserves);
     } catch (err) {
         console.error(err);
         res.status(500).json({ erro: 'Erro ao buscar reservas.' });
+    }
+};
+
+exports.getReservesToApprove = async (req, res) => {
+    try {
+        const reserves = await Reserve.find({status: 'pendente'})
+            .populate('resource_id', 'name')
+            .populate('user_id', 'name');
+
+        console.log(reserves);
+        res.send(reserves);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ erro: 'Erro ao buscar reservas.' });
+    }
+};
+
+exports.updateReserveStatus = async (req, res) => {
+    try {
+        const { id }  = req.params;
+        const { status, approval } = req.body;
+
+        const updatedReserve = await Reserve.findByIdAndUpdate(
+            id,
+            {
+                $set: {
+                    status: status, 
+                    approval: approval,
+                    updated_at: new Date()
+                }
+            },
+            { new: true }
+        );
+
+        res.json(updatedReserve);
+
+    } catch (error) {
+        console.error('Erro ao atualizar status da reserva:', error);
+        res.status(500).json({ error: 'Erro ao atualizar status da reserva.'});
     }
 };

@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tr = document.createElement('tr');
 
         tr.innerHTML = `
-          <td>${reserva.resource_id}</td>
+          <td>${reserva.resource_id.name}</td>
           <td>${new Date(reserva.start_at).toLocaleString()}</td>
           <td>${new Date(reserva.end_at).toLocaleString()}</td>
           <td>${reserva.status}</td>
