@@ -29,6 +29,13 @@
 
       <div class="nav-right">
         <a href="userReserves.html"><i class="fas fa-user-plus"></i> Meus Agendamentos</a>
+
+        <a href="#openmodal_menu">
+          <img id="img_menu" src="/frontend/public/img/profile-icon.png" alt="Perfil">
+        </a>
+      </div>
+      <div id="profile-icon">
+        
       </div>
     </nav>
   </header>
@@ -52,6 +59,17 @@
         <i class="fas fa-calendar-alt"></i> Agendar Equipamento
       </a>
     </div>
+
+     <div id="openmodal_menu" class="modaldialog_menu">
+      <div class="modal-content_menu">
+        <a href="#close" class="close" aria-label="Fechar">X</a>
+          <div id="summary-container_menu">
+            <p id="summary-title_menu">Puxar Nome Usuario</p>
+            <a href="/frontend/src/pages/error404.html"><p class="summary-container-text">Minha Conta</p></a>
+            <a href="/frontend/src/pages/error404.html"><p class="summary-container-text">Sair</p></a>
+          </div>
+      </div>
+
   </main>
 
   <script src="script.js"></script>

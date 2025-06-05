@@ -152,6 +152,20 @@ nav {
   justify-content: center;
 }
 
+.nav-right {
+  display: flex;
+  justify-content: center;
+
+}
+
+.nav-right img {
+  width: 50px;
+  border-radius: 100%;
+  margin-left: 70px;
+  cursor: pointer;
+  
+}
+
 .search-bar {
   display: flex;
   align-items: center;
@@ -199,3 +213,115 @@ nav {
   background-color: rgba(255, 255, 255, 0.2);
   transform: scale(1.05);
 }
+
+
+
+ #openmodal_menu {
+    position: fixed;
+    top: 0;
+    right: -355px; /* Escondido fora da tela */
+    width: 20%; /* Largura do menu */
+    margin-top: 4.5%;
+    margin-right: 1%;
+    border-radius: 5%;
+    background-color: #f4f4f4; /* Cor de fundo */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    overflow-y: auto; /* Rolagem interna, se necessário */
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+    transition: right 0.3s ease; /* Animação suave ao abrir/fechar */
+  }
+
+  /* Mostrar o modal ao usar o ID como alvo */
+  #openmodal_menu:target {
+    right: 0; /* Move o menu para dentro da tela */
+  }
+
+  /* Conteúdo do modal */
+  .modal-content_menu {
+    padding: 10%;
+    margin-top: 10%;
+  }
+
+  /* Botão de fechar */
+  .close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #333;
+    
+  }
+
+
+
+/* Links do menu */
+
+#summary-title_menu {
+  color: #050d17;
+  font-size: 20px;
+  font-weight: bold;
+  justify-self: center;
+}
+
+.summary-container-text {
+  margin: 15px 0;
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+
+  .summary-container-text:hover {
+    color: #007BFF;
+  }
+
+  /* Ícone do menu */
+  #img_menu {
+    cursor: pointer;
+    width: 40px;
+  }
+
+    /* Links do menu */
+    .summary-container-text {
+      margin: 15px 0;
+      font-size: 16px;
+      color: #333;
+      text-decoration: none;
+      display: block;
+    }
+
+    .summary-container-text:hover {
+      color: #007BFF;
+    }
+
+    /* Ícone do menu */
+    #img_menu {
+      cursor: pointer;
+      width: 40px;
+      
+    }
+
+    .link-menu {
+      position: fixed;
+      top: 20px;
+      left: -40px; /* Parte inicial visível fora da tela */
+      z-index: 1001;
+      width: 60px; /* Largura total do menu */
+      height: 40px; /* Altura do menu */
+      overflow: hidden; /* Esconde partes excedentes */
+      transition: left 0.3s ease; /* Animação suave */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .link-menu:hover {
+      left: 0px; /* Move o menu para dentro da tela ao passar o mouse */
+    }
+    
+    .link-menu img {
+      width: 40px; /* Tamanho da imagem dentro do botão */
+      height: 40px;
+      border-radius: 10px;
+    }
