@@ -22,6 +22,7 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   width: 100%;
   max-width: 360px;
+  margin-top: 10%;
 }
 
 .container h1 {
@@ -33,6 +34,7 @@ body {
 
 .form-group {
   margin-bottom: 1.2rem;
+  max-width: 95%;
 }
 
 label {
