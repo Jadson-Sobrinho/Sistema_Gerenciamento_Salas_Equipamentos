@@ -32,3 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
     getUserName();
 
 });
+
+
+async function logout() {
+    localStorage.removeItem('authToken');
+    window.location.href = '/frontend/src/pages/login.html';
+}
