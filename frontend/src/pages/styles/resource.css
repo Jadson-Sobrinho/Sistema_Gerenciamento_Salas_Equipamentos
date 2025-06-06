@@ -15,6 +15,20 @@ body {
   padding: 1rem;
 }
 
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--azul-institucional);
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .container {
   background: #fff;
   padding: 2rem;
@@ -22,6 +36,7 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   width: 100%;
   max-width: 360px;
+  margin-top: 5%;
 }
 
 .container h1 {
@@ -33,6 +48,7 @@ body {
 
 .form-group {
   margin-bottom: 1.2rem;
+  max-width: 95%;
 }
 
 label {
