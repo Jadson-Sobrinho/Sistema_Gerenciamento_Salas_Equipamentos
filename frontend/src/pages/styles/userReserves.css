@@ -54,6 +54,20 @@ tr:nth-child(even) {
   background: #f9f9f9;
 }
 
+
+button {
+  background-color: #F44336;
+  color: white;
+  width: 90px;
+  height: 30px;
+  
+}
+
+button:hover {
+  background-color: #D32F2F;
+  transform: scale(1.05);
+}
+
 @media (max-width: 768px) {
   th, td {
     font-size: 0.8rem;
