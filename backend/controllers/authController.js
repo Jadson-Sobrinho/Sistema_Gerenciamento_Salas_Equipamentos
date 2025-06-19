@@ -76,3 +76,14 @@ exports.getProfile = (req, res) => {
   const { sub: id, name, email, role } = req.user;
   return res.json({ id, name, email, role });
 };
+
+
+exports.requireRole = (...allowedRoles) => {
+  return (req, res, next) => {
+    const userRole = req.user && req.user.role;
+    if (!userRole || !allowedRoles.includes(userRole)) {
+      return res.status(403).json({error: "Acesso negado!"})
+    }
+    next();
+  }
+};

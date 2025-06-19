@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const resourceController = require('../controllers/resourceController');
+const auth = require('../controllers/authController');
 
 // [GET] /room- Busca todas as salas
 router.get('/', resourceController.getAllRooms);
@@ -9,7 +10,7 @@ router.get('/', resourceController.getAllRooms);
 router.get('/:room_number', resourceController.getRoomByNumber);
 
 // POST /room - cria nova sala
-router.post('/', resourceController.registerRoom);
+router.post('/', auth.authToken, auth.requireRole('Admin'), resourceController.registerRoom);
 
 // Patch /room - Atualizar os dados da sala
 router.patch('/', resourceController.updateRoom);

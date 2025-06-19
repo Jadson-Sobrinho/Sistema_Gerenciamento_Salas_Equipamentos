@@ -1,4 +1,5 @@
 const API_URL = 'http://localhost:3000';
+const token = localStorage.getItem('authToken');
 
 document.addEventListener('DOMContentLoaded', () => {    
     
@@ -22,7 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(`${API_URL}/room`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
                 body: JSON.stringify(payload)
             });
             const result = await response.json();
