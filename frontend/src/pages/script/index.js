@@ -13,6 +13,7 @@ function startCountdownFromToken(token) {
     if (remaining <= 0) {
         countdownEl.textContent = 'Expirado';
         clearInterval(interval);
+        logout();
         return;
     }
 
