@@ -1,5 +1,6 @@
 const express = require('express');
 const Reserve = require('../models/Reserve');
+const Resource = require('../models/Resource');
 
   exports.Reserve = async (req, res) => {
     try{      
@@ -17,7 +18,21 @@ const Reserve = require('../models/Reserve');
         end_at
         });
 
-        const savedReserve = await newReserve.save();
+        const savedReserve = await newReserve.save(); 
+
+
+        const updateHours = await Resource.updateOne(
+            {_id: resource_id},
+            {
+                $push: {
+                    unavailable_hours: {
+                        start: new Date(start_at),
+                        end: new Date(end_at)
+                    }
+                }
+            }
+        );
+        
 
         res.status(200).json({ message: 'Reservar criada com sucesso.' });
 

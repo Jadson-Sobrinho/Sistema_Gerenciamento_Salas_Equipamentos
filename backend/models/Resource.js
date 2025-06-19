@@ -36,10 +36,18 @@ const salaSchema = new mongoose.Schema({
     enum: ['disponível', 'indisponível', 'manutenção'],
     default: 'disponível'
   },
-  available_hours: {
-    type: [String], // ex: ["08:00-12:00", "14:00-18:00"]
-    default: []
-  },
+  unavailable_hours: [
+    {
+      start: {
+        type: Date,
+        default: undefined
+      }, 
+      end: {
+        type: Date,
+        default: undefined
+      }
+    }
+  ],
   description: {
     type: String
   },

@@ -1,5 +1,5 @@
 const express = require('express');
-const Sala = require('../models/Room');
+const Sala = require('../models/Resource');
 
 exports.getAllRooms = async (req, res) => {
     try {
@@ -75,6 +75,7 @@ exports.registerRoom = async (req, res) => {
   exports.updateRoom = async (req, res) => {
     try {
       const {
+        resource_id,
         name,
         room_number,
         type,
@@ -83,14 +84,14 @@ exports.registerRoom = async (req, res) => {
         module,
         floor,
         status,
-        available_hours,
+        unavailable_hours,
         description
       } = req.body;
       
       console.log(req.body);
 
       const room = await Sala.updateOne(
-        {room_number: room_number}, 
+        {resource_id: resource_id}, 
         {
           name,
           room_number,
@@ -100,7 +101,7 @@ exports.registerRoom = async (req, res) => {
           module,
           floor,
           status,
-          available_hours,
+          unavailable_hours,
           description
         }, { new: true }
       );

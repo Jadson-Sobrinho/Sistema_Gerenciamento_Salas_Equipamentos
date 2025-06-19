@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Sala = require('../models/Room');
 const resourceController = require('../controllers/resourceController');
 
 // [GET] /room- Busca todas as salas

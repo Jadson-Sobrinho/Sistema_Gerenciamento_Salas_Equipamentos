@@ -24,15 +24,7 @@ const reservaSchema = new mongoose.Schema({
     enum: ['pendente', 'aprovada', 'rejeitada', 'concluída', 'cancelada'],
     default: 'pendente'
   },
-  approval: {
-    type: Boolean,
-    default: false
-  },
   alert: {
-    type: Boolean,
-    default: false
-  },
-  cancelled: {
     type: Boolean,
     default: false
   },
