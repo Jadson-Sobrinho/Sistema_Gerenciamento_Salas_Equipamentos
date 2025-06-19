@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tabela.appendChild(novaLinha('Usuário', reserva.user_id.name));
         tabela.appendChild(novaLinha('Recurso', reserva.resource_id.name));
-        tabela.appendChild(novaLinha('Início', formatarData(reserva.start_at)));
-        tabela.appendChild(novaLinha('Fim', formatarData(reserva.end_at)));
+        tabela.appendChild(novaLinha('Início', formatarData(reserva.start)));
+        tabela.appendChild(novaLinha('Fim', formatarData(reserva.end)));
         tabela.appendChild(novaLinha(
           'Status',
           reserva.status.charAt(0).toUpperCase() + reserva.status.slice(1)

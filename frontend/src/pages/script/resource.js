@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             module: document.getElementById('module').value,
             floor: parseInt(document.getElementById('floor').value, 10),
             status: document.getElementById('status').value,
-            available_hours: document.getElementById('available_hours').value.split(',').map(h => h.trim()).filter(h => h),
+            unavailable_hours: document.getElementById('unavailable_hours').value.split(',').map(h => h.trim()).filter(h => h),
             description: document.getElementById('description').value
         };
 

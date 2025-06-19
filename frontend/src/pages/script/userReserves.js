@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tr.innerHTML = `
           <td>${reserva.resource_id.name}</td>
-          <td>${new Date(reserva.start_at).toLocaleString()}</td>
-          <td>${new Date(reserva.end_at).toLocaleString()}</td>
+          <td>${new Date(reserva.start).toLocaleString()}</td>
+          <td>${new Date(reserva.end).toLocaleString()}</td>
           <td>${reserva.status}</td>
           <td>${reserva.approval ? 'Sim' : 'Não'}</td>
           <td>${reserva.cancelled ? 'Sim' : 'Não'}</td>
