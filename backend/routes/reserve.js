@@ -10,6 +10,6 @@ router.get('/', auth.authToken, reserve.getUserReserves);
 
 router.get('/approve', reserve.getReservesToApprove);
 
-router.patch('/:id/status', auth.authToken, reserve.updateReserveStatus);
+router.patch('/:id/status', auth.authToken, auth.requireRole('Admin'), reserve.updateReserveStatus);
 
 module.exports = router;
