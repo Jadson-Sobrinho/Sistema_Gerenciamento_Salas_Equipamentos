@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const token = localStorage.getItem('authToken');
 
-    async function getUserName() {
+    async function getUserInfo() {
         try {
             const response = await fetch(`${API_URL}/auth/me`, {
                 headers: {
@@ -50,17 +50,19 @@ document.addEventListener('DOMContentLoaded', function() {
             /*console.log(userInfo.name);*/
 
             const userName = document.getElementById('summary-title_menu');
+            const userRule = document.getElementById('user-rule');
 
             /*console.log(userName);*/
 
             userName.innerText = userInfo.name;
+            userRule.innerText = userInfo.role;
 
         } catch (error) {
             console.error('Erro ao carregar informações do usuario:', error);
         }
     }
 
-    getUserName();
+    getUserInfo();
 
     if (token) {
         startCountdownFromToken(token);
