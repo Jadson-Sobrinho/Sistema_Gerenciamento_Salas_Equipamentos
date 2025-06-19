@@ -68,8 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>${new Date(reserva.start_at).toLocaleString()}</td>
           <td>${new Date(reserva.end_at).toLocaleString()}</td>
           <td>${reserva.status}</td>
-          <td>${reserva.approval ? 'Sim' : 'Não'}</td>
-          <td>${reserva.cancelled ? 'Sim' : 'Não'}</td>
           <td>${new Date(reserva.created_at).toLocaleString()}</td>
           <td>${new Date(reserva.updated_at).toLocaleString()}</td>
         `;

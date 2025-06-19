@@ -52,13 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tabela.appendChild(novaLinha('Recurso', reserva.resource_id.name));
         tabela.appendChild(novaLinha('Início', formatarData(reserva.start_at)));
         tabela.appendChild(novaLinha('Fim', formatarData(reserva.end_at)));
-        tabela.appendChild(novaLinha(
-          'Status',
-          reserva.status.charAt(0).toUpperCase() + reserva.status.slice(1)
-        ));
-        tabela.appendChild(novaLinha('Aprovado', reserva.approval ? 'Sim' : 'Não'));
+        tabela.appendChild(novaLinha('Status',reserva.status.charAt(0).toUpperCase() + reserva.status.slice(1)));
         tabela.appendChild(novaLinha('Alerta', reserva.alert ? 'Sim' : 'Não'));
-        tabela.appendChild(novaLinha('Cancelada', reserva.cancelled ? 'Sim' : 'Não'));
         tabela.appendChild(novaLinha('Criado em', formatarData(reserva.created_at)));
         tabela.appendChild(novaLinha('Atualizado em', formatarData(reserva.updated_at)));
 
