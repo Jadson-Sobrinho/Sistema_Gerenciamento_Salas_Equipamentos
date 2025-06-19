@@ -325,3 +325,12 @@ nav {
       height: 40px;
       border-radius: 10px;
     }
+
+    #countdown {
+      position: absolute;
+      margin-top: 25px;
+    }
+    #user-name {
+      position: absolute;
+      margin-bottom: 15px;
+    }

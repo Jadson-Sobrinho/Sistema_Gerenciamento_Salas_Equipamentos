@@ -17,17 +17,17 @@ exports.loginUser = async (req, res) => {
       return res.status(401).json({ error: 'Email ou senha inválidos' });
     }
 
-    //Payload do token (coloque aqui apenas o mínimo necessário)
     const payload = {
       sub:  user._id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      role: user.role
     };
 
     //Geração do token JWT
     const token = jwt.sign(
       payload,
-      process.env.JWT_SECRET || 'sua_chave_secreta',
+      process.env.JWT_SECRET || 'chave_secreta',
       { expiresIn: '1h' }
     );
     console.log(token);
@@ -37,9 +37,11 @@ exports.loginUser = async (req, res) => {
       user: {
         id:    user._id,
         name:  user.name,
-        email: user.email
+        email: user.email,
+        role: user.role
       }
     });
+
   } catch (err) {
     console.error('Erro no login:', err);
     return res.status(500).json({ error: 'Erro interno no servidor' });
@@ -56,14 +58,12 @@ exports.authToken = (req, res, next) => {
   }
 
   jwt.verify(
-    token,
-    process.env.JWT_SECRET || 'sua_chave_secreta',
-    (err, decoded) => {
+    token, 'chave_secreta', (err, decoded) => {
       if (err) {
         console.error('Erro ao verificar token:', err);
         return res.status(403).json({ error: 'Token inválido ou expirado' });
       }
-
+      console.log('decoded JWT:', decoded);
       //Armazena o payload decodificado em req.user
       req.user = decoded;
       next();
@@ -73,6 +73,6 @@ exports.authToken = (req, res, next) => {
 
 //Rota para retornar perfil do usuário logado
 exports.getProfile = (req, res) => {
-  const { sub: id, name, email } = req.user;
-  return res.json({ id, name, email });
+  const { sub: id, name, email, role } = req.user;
+  return res.json({ id, name, email, role });
 };
