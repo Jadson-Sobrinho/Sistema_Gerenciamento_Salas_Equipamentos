@@ -30,7 +30,7 @@ function startCountdownFromToken(token) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     console.log('Página carregada com sucesso.');
 
     const token = localStorage.getItem('authToken');
@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             userName.innerText = userInfo.name;
             userRule.innerText = userInfo.role;
 
+            return userInfo;
         } catch (error) {
             console.error('Erro ao carregar informações do usuario:', error);
         }
@@ -69,6 +70,13 @@ document.addEventListener('DOMContentLoaded', function() {
         startCountdownFromToken(token);
     }
 
+    const userInfo = await getUserInfo();
+    if (userInfo.role === 'Aluno') {
+        document.querySelectorAll('.admin-link').forEach(element => {
+            element.style.display = 'none';
+        });
+        
+    }
 });
 
 
