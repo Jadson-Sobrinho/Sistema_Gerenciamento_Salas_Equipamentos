@@ -26,7 +26,7 @@ body {
 
 .nav-container {
   max-width: 1200px;
-  margin: 10px auto;
+  margin: 0px auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,9 +35,10 @@ body {
 
 .brand {
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 2.5rem;
   text-decoration: none;
   font-weight: bold;
+  
 }
 
 .nav-links {

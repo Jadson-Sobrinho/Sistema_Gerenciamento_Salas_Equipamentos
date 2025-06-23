@@ -3,22 +3,19 @@ const API_URL = 'http://localhost:3000';
 document.addEventListener('DOMContentLoaded', () => {
   const tbody = document.getElementById('reserva-table-body');
 
-  async function cancelarReserva(reserva_id) {
+  async function cancelarReserva(reserva_id, resource_id, start_at, end_at) {
     const confirmar = confirm('Tem certeza que deseja cancelar esta reserva?');
 
     if (!confirmar) return;
 
     try {
-      const response = await fetch(`${API_URL}/reserve/${reserva_id}/status`, {
+      const response = await fetch(`${API_URL}/reserve/${reserva_id}/cancel`, {
         method: 'PATCH',
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
           'Content-type': 'application/json'
         },
-        body: JSON.stringify({
-          status: "cancelada",
-          approval: false
-        })
+        body: JSON.stringify({resource_id, start_at, end_at})
       });
 
         if (!response.ok) {
@@ -34,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
   }
-
 
 
   async function carregarReservas() {
@@ -74,7 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const cancelBtn = document.createElement('button');
         cancelBtn.textContent = 'Cancelar';
-        cancelBtn.onclick = () => cancelarReserva(reserva._id);
+        cancelBtn.onclick = () => {
+          cancelarReserva(reserva._id, reserva.resource_id, reserva.start_at, reserva.end_at);
+        }
 
         // Cria a célula <td> e adiciona o botão nela
         const td = document.createElement('td');

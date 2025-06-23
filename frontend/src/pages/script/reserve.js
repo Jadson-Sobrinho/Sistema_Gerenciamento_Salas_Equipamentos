@@ -109,12 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (response.ok) {
         msgEl.style.color = 'green';
         msgEl.textContent = 'Reserva cadastrada com sucesso!';
-        this.reset();
+        //this.reset();
         statusInput.value = '';
         hoursTextarea.value = '';
       } else {
         msgEl.style.color = 'red';
-        msgEl.textContent = result.error || 'Erro ao cadastrar reserva.';
+        msgEl.textContent = result.message;
       }
     } catch (error) {
       const msgEl = document.getElementById('message');
