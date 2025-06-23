@@ -30,8 +30,14 @@ exports.createReserve = async (req, res) => {
         
         const conflict = await ReserveModel.findOne({
             resource_id,
-            start_at: {$lt: end},
-            end_at: {$gt: start}
+            status: {$nin: ['cancelada', 'rejeitada']},
+            $or: [
+                {
+                    start_at: {$lt: end},
+                    end_at: {$gt: start}
+                }      
+            ]
+
         });
 
         if(conflict) {
@@ -97,21 +103,30 @@ exports.getReservesToApprove = async (req, res) => {
 exports.updateReserveStatus = async (req, res) => {
     try {
         const { id }  = req.params;
-        const { status, approval } = req.body;
+        const { resource_id, start_at, end_at, status } = req.body;
 
-        const updatedReserve = await ReserveModel.findByIdAndUpdate(
+        const startDate = new Date(start_at);
+        const endDate = new Date(end_at);
+
+        await ReserveModel.findByIdAndUpdate(
             id,
             {
                 $set: {
-                    status: status, 
-                    approval: approval,
+                    status: status,
                     updated_at: new Date()
                 }
             },
             { new: true }
         );
 
-        res.json(updatedReserve);
+        if(status == 'rejeitada') {
+            await ResourceModel.updateOne(
+                { _id: resource_id },
+                { $pull: { unavailable_hours: { start: startDate, end: endDate }}}
+            );
+        }
+
+        return res.status(200).json({ message: 'Operação concluída sucesso.' });
 
     } catch (error) {
         console.error('Erro ao atualizar status da reserva:', error);
