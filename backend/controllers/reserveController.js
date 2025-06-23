@@ -1,8 +1,22 @@
 const express = require('express');
-const Reserve = require('../models/Reserve');
-const Resource = require('../models/Resource');
+const ReserveModel = require('../models/Reserve');
+const ResourceModel = require('../models/Resource');
 
-  exports.Reserve = async (req, res) => {
+
+exports.getAllReserves = async (req, res) => {
+    try{
+        const allReserves = await ReserveModel.find().populate('resource_id', 'name').populate('user_id', 'name');
+        console.log(allReserves);
+
+        res.json(allReserves);
+
+    }catch(erro) {
+        console.log(erro);
+        return res.status(500).json({message: "Erro ao exportar dados das reservas", erro: erro.message});
+    }
+};
+
+exports.createReserve = async (req, res) => {
     try{      
         const {
         user_id,
@@ -10,31 +24,39 @@ const Resource = require('../models/Resource');
         start_at,
         end_at
         } = req.body;
+
+        const start = new Date(start_at);
+        const end = new Date(end_at);
         
-        const newReserve = new Reserve({
-        user_id,
-        resource_id,
-        start_at,
-        end_at
+        const conflict = await ReserveModel.findOne({
+            resource_id,
+            start_at: {$lt: end},
+            end_at: {$gt: start}
+        });
+
+        if(conflict) {
+            return res.status(409).json({message: "Horário indiponível"});
+        }
+        
+        const newReserve = new ReserveModel({
+            user_id,
+            resource_id,
+            start_at,
+            end_at
         });
 
         const savedReserve = await newReserve.save(); 
 
-
-        const updateHours = await Resource.updateOne(
+        const updateHours = await ResourceModel.updateOne(
             {_id: resource_id},
             {
                 $push: {
-                    unavailable_hours: {
-                        start: new Date(start_at),
-                        end: new Date(end_at)
-                    }
+                    unavailable_hours: { start, end }
                 }
             }
         );
         
-
-        res.status(200).json({ message: 'Reservar criada com sucesso.' });
+        return res.status(201).json({ message: 'Reservar criada com sucesso.' });
 
     } catch (error) {
         console.log(error);
@@ -48,7 +70,7 @@ exports.getUserReserves = async (req, res) => {
         const user_id = req.user.sub; 
         console.log(`Rota /reserve chamada pelo usuário ${user_id}`);
 
-        const reserves = await Reserve.find({ user_id: user_id }).populate('resource_id', 'name');
+        const reserves = await ReserveModel.find({ user_id: user_id }).populate('resource_id', 'name');
 
         console.log(reserves);
         res.json(reserves);
@@ -60,7 +82,7 @@ exports.getUserReserves = async (req, res) => {
 
 exports.getReservesToApprove = async (req, res) => {
     try {
-        const reserves = await Reserve.find({status: 'pendente'})
+        const reserves = await ReserveModel.find({status: 'pendente'})
             .populate('resource_id', 'name')
             .populate('user_id', 'name');
 
@@ -77,7 +99,7 @@ exports.updateReserveStatus = async (req, res) => {
         const { id }  = req.params;
         const { status, approval } = req.body;
 
-        const updatedReserve = await Reserve.findByIdAndUpdate(
+        const updatedReserve = await ReserveModel.findByIdAndUpdate(
             id,
             {
                 $set: {
