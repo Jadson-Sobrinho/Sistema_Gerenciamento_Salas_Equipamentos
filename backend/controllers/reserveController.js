@@ -118,3 +118,32 @@ exports.updateReserveStatus = async (req, res) => {
         res.status(500).json({ error: 'Erro ao atualizar status da reserva.'});
     }
 };
+
+
+exports.cancelReserve = async (req, res) => {
+  const { reserva_id } = req.params;
+  const { resource_id, start_at, end_at } = req.body;
+
+  const startDate = new Date(start_at);
+  const endDate = new Date(end_at);
+
+  console.log(resource_id, start_at, end_at);
+
+  try {
+    await ReserveModel.updateOne(
+        { _id: reserva_id },
+        { $set: {status: 'cancelada'} }
+    );
+    await ResourceModel.updateOne(
+        { _id: resource_id },
+        { $pull: { unavailable_hours: { start: startDate, end: endDate }}}
+    );
+
+    return res.status(200).json({ message: 'Reserva cancelada e horário liberado com sucesso.' });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao cancelar reserva.' });
+  }
+
+};
+  
