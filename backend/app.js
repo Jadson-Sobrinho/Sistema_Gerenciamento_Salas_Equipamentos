@@ -11,6 +11,8 @@ const authRoute = require('./routes/auth.js');
 app.use(cors());                          
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend/src/pages')));
+app.use('/style', express.static(path.join(__dirname, '../frontend/src/pages/styles')));
+app.use('/script', express.static(path.join(__dirname, '../frontend/src/pages/script')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/src/pages/login.html'));
