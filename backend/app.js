@@ -19,6 +19,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/src/pages/login.html'));
 });
 
+app.get('/index-form', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/src/pages/index.html'));
+});
+
 app.get('/room-form', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/src/pages/resource.html'));
 });

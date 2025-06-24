@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Redirecionar para dashboard ou outra página
         setTimeout(() => {
-          window.location.href = '/frontend/src/pages/index.html';
+          window.location.href = '/index-form';
         }, 1000);
       } else {
         // Exibir erro
