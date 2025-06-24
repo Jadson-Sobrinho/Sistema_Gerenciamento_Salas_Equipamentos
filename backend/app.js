@@ -39,6 +39,15 @@ app.get('/userReserves-form', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/src/pages/userReserves.html'));
 });
 
+app.get('/reserve-form', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/src/pages/reserve.html'));
+});
+
+app.get('/reservesToApprove-form', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/src/pages/reservesToApprove.html'));
+});
+
+
 app.use('/auth', authRoute);
 app.use('/user', usuariosRoute);
 app.use('/room', salasRoute);
