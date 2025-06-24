@@ -82,5 +82,5 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 async function logout() {
     localStorage.removeItem('authToken');
-    window.location.href = '/frontend/src/pages/login.html';
+    window.location.href = '/login-form';
 }
