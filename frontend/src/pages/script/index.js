@@ -35,6 +35,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     const token = localStorage.getItem('authToken');
 
+    if (!token) {
+        window.location.href = '/login-form';
+        return;
+    }
+
     async function getUserInfo() {
         try {
             const response = await fetch(`/auth/me`, {
