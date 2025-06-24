@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             return userInfo;
         } catch (error) {
             console.error('Erro ao carregar informações do usuario:', error);
+            logout();
         }
     }
 
