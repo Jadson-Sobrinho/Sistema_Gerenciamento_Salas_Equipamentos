@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         botaoDeferir.classList.add('deferir');
 
         botaoDeferir.addEventListener('click', async() => {
-          await alterarStatusReserva(reserva._id, 'aprovada');
+          await alterarStatusReserva(reserva._id, reserva.resource_id, reserva.start_at, reserva.end_at, 'aprovada');
         });
 
         const botaoIndeferir = document.createElement('button');
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         botaoIndeferir.classList.add('indeferir');
 
         botaoIndeferir.addEventListener('click', async() => {
-          await alterarStatusReserva(reserva._id, 'rejeitada');
+          await alterarStatusReserva(reserva._id, reserva.resource_id, reserva.start_at, reserva.end_at, 'rejeitada');
         });
 
         botoesDiv.appendChild(botaoDeferir);
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Função para alterar o status da reserva
-  async function alterarStatusReserva(reserva_id, novoStatus) {
+  async function alterarStatusReserva(reserva_id, resource_id, start_at, end_at, novoStatus) {
     const token = localStorage.getItem('authToken');
     try {
       const response = await fetch(`${API_URL}/${reserva_id}/status`, {
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ status: novoStatus })
+        body: JSON.stringify({resource_id, start_at, end_at, status: novoStatus })
       });
 
       if (!response.ok) {
