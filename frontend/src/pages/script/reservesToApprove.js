@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function alterarStatusReserva(reserva_id, resource_id, start_at, end_at, novoStatus) {
     const token = localStorage.getItem('authToken');
     try {
-      const response = await fetch(`${API_URL}/${reserva_id}/status`, {
+      const response = await fetch(`/${reserva_id}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

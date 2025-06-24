@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     async function getUserInfo() {
         try {
-            const response = await fetch(`${API_URL}/auth/me`, {
+            const response = await fetch(`/auth/me`, {
                 headers: {
                     'authorization': 'Bearer ' + token
                 }

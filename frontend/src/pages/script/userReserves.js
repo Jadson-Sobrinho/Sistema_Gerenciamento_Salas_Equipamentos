@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tbody.innerHTML = `<tr><td colspan="8">Carregando...</td></tr>`;
 
     try {
-      const response = await fetch(`${API_URL}/reserve`, {
+      const response = await fetch(`/reserve`, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('authToken')
         }

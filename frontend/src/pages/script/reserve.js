@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Busca recursos disponíveis
-  fetch(`${API_URL}/room`)
+  fetch(`/room`)
     .then(res => res.json())
     .then(data => {
       allResources = data;
