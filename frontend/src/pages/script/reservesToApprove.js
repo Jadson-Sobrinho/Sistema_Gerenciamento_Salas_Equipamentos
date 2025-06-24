@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function reservesToApprove() {
     try {
-      const response = await fetch(`${API_URL}/approve`);
+      const response = await fetch(`/approve`);
       if (!response.ok) {
         throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
       }

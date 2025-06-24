@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     try {
-      const response = await fetch(`${API_URL}/reserve`, {
+      const response = await fetch(`/reserve`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

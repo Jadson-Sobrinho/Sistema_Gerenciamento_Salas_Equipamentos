@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Enviar requisição para o endpoint de login
-      const response = await fetch(`${API_URL}/auth/login`, {
+      const response = await fetch(`/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

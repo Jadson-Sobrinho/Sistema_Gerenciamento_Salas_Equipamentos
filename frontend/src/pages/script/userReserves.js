@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!confirmar) return;
 
     try {
-      const response = await fetch(`${API_URL}/reserve/${reserva_id}/cancel`, {
+      const response = await fetch(`/reserve/${reserva_id}/cancel`, {
         method: 'PATCH',
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
