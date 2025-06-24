@@ -17,7 +17,7 @@ app.use('/script', express.static(path.join(__dirname, '../frontend/src/pages/sc
 app.use('/img', express.static(path.join(__dirname, '../frontend/public/img')));
 
 app.get('/', (req, res) => {
-  res.redirect('/login-form');
+  res.sendFile(path.join(__dirname, '../frontend/src/pages/login.html'));
 });
 
 app.get('/index-form', (req, res) => {
