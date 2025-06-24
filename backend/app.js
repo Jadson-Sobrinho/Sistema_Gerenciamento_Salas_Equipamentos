@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');              
 const path = require('path'); 
-const auth    = require('../controllers/authController');
+
 
 const usuariosRoute = require('./routes/user');
 const salasRoute = require('./routes/resource');
@@ -17,10 +17,10 @@ app.use('/script', express.static(path.join(__dirname, '../frontend/src/pages/sc
 app.use('/img', express.static(path.join(__dirname, '../frontend/public/img')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/src/pages/login.html'));
+  res.redirect('/login-form');
 });
 
-app.get('/index-form', auth.authToken,(req, res) => {
+app.get('/index-form', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/src/pages/index.html'));
 });
 
