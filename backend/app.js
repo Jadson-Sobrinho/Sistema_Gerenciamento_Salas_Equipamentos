@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');              
 const path = require('path'); 
+const auth    = require('../controllers/authController');
 
 const usuariosRoute = require('./routes/user');
 const salasRoute = require('./routes/resource');
@@ -19,7 +20,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/src/pages/login.html'));
 });
 
-app.get('/index-form', (req, res) => {
+app.get('/index-form', auth.authToken,(req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/src/pages/index.html'));
 });
 
