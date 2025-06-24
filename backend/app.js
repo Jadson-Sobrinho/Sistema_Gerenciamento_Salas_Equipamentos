@@ -12,6 +12,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend/src/pages')));
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/src/pages/login.html'));
+});
 
 app.get('/reserve-form', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/src/pages/index.html'));
