@@ -7,7 +7,7 @@ const auth = require('../controllers/authController');
 router.get('/', resourceController.getAllRooms);
 
 // [GET] /room/:number - Busca uma sala pelo numero
-router.get('/:room_number', resourceController.getRoomByNumber);
+router.get('/:name', resourceController.getRoomByName);
 
 // POST /room - cria nova sala
 router.post('/', auth.authToken, auth.requireRole('Admin'), resourceController.registerRoom);
