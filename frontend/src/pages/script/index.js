@@ -29,6 +29,15 @@ function startCountdownFromToken(token) {
     const interval = setInterval(updateCountdown, 1000);
 }
 
+function formatarDataHoraUTC(isoString) {
+  const ano = isoString.substring(0, 4);
+  const mes = isoString.substring(5, 7);
+  const dia = isoString.substring(8, 10);
+  const hora = isoString.substring(11, 13);
+  const minuto = isoString.substring(14, 16);
+  return `${dia}/${mes}/${ano} - ${hora}:${minuto}`;
+}
+
 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('Página carregada com sucesso.');
@@ -104,11 +113,46 @@ document.addEventListener('DOMContentLoaded', async function() {
     fetch(`${API_URL}/room/${nome}`)
       .then(response => response.json())
       .then(data => {
-        // exibir resultado
+        atualizarConteudoPrincipal(data);
         console.log(data);
       })
       .catch(err => console.error('Erro na busca:', err));
   }
+
+  function atualizarConteudoPrincipal(recurso) {
+  const main = document.getElementById('conteudoPrincipal');
+
+    const horarios = recurso.unavailable_hours.length > 0
+    ? recurso.unavailable_hours.map(h => {
+        const inicio = formatarDataHoraUTC(h.start);
+        const fim = formatarDataHoraUTC(h.end);
+        return `<li>${inicio} → ${fim}</li>`;
+        }).join('')
+    : '<li>Nenhum horário indisponível</li>';
+
+  main.innerHTML = `
+    <h1>${recurso.name}</h1>
+
+    <div class="card">
+      <h2>Detalhes da Sala</h2>
+      <p><strong>Número:</strong> ${recurso.room_number}</p>
+      <p><strong>Módulo:</strong> ${recurso.module}</p>
+      <p><strong>Andar:</strong> ${recurso.floor}</p>
+      <p><strong>Capacidade:</strong> ${recurso.capacity} pessoas</p>
+      <p><strong>Status:</strong> ${recurso.status}</p>
+      <p><strong>Tags:</strong> ${recurso.tags.join(', ')}</p>
+
+      <h3>Horários Reservados</h3>
+      <ul>${horarios}</ul>
+
+      <a class="action-btn" href="reserve.html">
+        <i class="fas fa-calendar-alt"></i> Agendar Sala
+      </a>
+
+      <p style="margin-top: 16px;"><a href="#" onclick="window.location.reload()">← Voltar ao início</a></p>
+    </div>
+  `;
+}
 
 });
 
