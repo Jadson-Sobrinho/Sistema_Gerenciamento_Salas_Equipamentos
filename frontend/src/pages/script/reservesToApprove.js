@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function reservesToApprove() {
     try {
-      const response = await fetch(`/reserve/approve`);
+      const response = await fetch(`${API_URL}/approve`);
       if (!response.ok) {
         throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
       }
@@ -48,14 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
           return date.toLocaleString('pt-BR', options);
         }
 
-        tabela.appendChild(novaLinha('Usuário', reserva.user_id.name));
-        tabela.appendChild(novaLinha('Recurso', reserva.resource_id.name));
-        tabela.appendChild(novaLinha('Início', formatarData(reserva.start_at)));
-        tabela.appendChild(novaLinha('Fim', formatarData(reserva.end_at)));
-        tabela.appendChild(novaLinha('Status',reserva.status.charAt(0).toUpperCase() + reserva.status.slice(1)));
-        tabela.appendChild(novaLinha('Alerta', reserva.alert ? 'Sim' : 'Não'));
-        tabela.appendChild(novaLinha('Criado em', formatarData(reserva.created_at)));
-        tabela.appendChild(novaLinha('Atualizado em', formatarData(reserva.updated_at)));
+        tabela.appendChild(novaLinha('Usuário', reserva.user_id?.name));
+        tabela.appendChild(novaLinha('Recurso', reserva.resource_id?.name));
+        tabela.appendChild(novaLinha('Início', formatarData(reserva?.start_at)));
+        tabela.appendChild(novaLinha('Fim', formatarData(reserva?.end_at)));
+        tabela.appendChild(novaLinha('Status',reserva?.status.charAt(0).toUpperCase() + reserva?.status.slice(1)));
+        tabela.appendChild(novaLinha('Alerta', reserva?.alert ? 'Sim' : 'Não'));
+        tabela.appendChild(novaLinha('Criado em', formatarData(reserva?.created_at)));
+        tabela.appendChild(novaLinha('Atualizado em', formatarData(reserva?.updated_at)));
 
         const botoesDiv = document.createElement('div');
         botoesDiv.classList.add('buttons');
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function alterarStatusReserva(reserva_id, resource_id, start_at, end_at, novoStatus) {
     const token = localStorage.getItem('authToken');
     try {
-      const response = await fetch(`/reserve/${reserva_id}/status`, {
+      const response = await fetch(`${API_URL}/${reserva_id}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

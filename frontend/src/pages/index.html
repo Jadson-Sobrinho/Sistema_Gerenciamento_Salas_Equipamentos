@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sistema de Reservas</title>
-  <link rel="stylesheet" href="/style/index.css" />
+  <link rel="stylesheet" href="styles/index.css" />
   <!-- Fonte de ícones Font Awesome -->
   <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
@@ -16,29 +16,29 @@
       <div class="nav-left">
         <ul>
           <li class="admin-link">
-            <a href="/room-form"><i class="fas fa-door-open"></i> Cadastrar Recurso</a>
+            <a href="resource.html"><i class="fas fa-door-open"></i> Cadastrar Recurso</a>
           </li>
           <li class="admin-link">
-            <a href="/reservesToApprove-form"><i class="fas fa-door-open"></i> Solicitações de Agendamento</a>
+            <a href="reservesToApprove.html"><i class="fas fa-door-open"></i> Solicitações de Agendamento</a>
           </li>
           <li>
-            <a href="/reserve-form"><i class="fas fa-calendar-check"></i> Fazer Reserva</a>
+            <a href="reserve.html"><i class="fas fa-calendar-check"></i> Fazer Reserva</a>
           </li>
         </ul>
       </div>
 
       <div class="nav-center">
-        <form class="search-bar" action="#" method="get">
-          <input type="text" name="q" placeholder="Digite o nome de algum recurso (ex: Sala 31)">
+        <form id="formBusca" class="search-bar" action="#" method="get">
+          <input type="text" id="campoBusca" name="q" placeholder="Digite o nome de algum recurso (ex: Sala 31)">
           <button type="submit"><i class="fas fa-search"></i>Pesquisar</button>
         </form>
       </div>
 
       <div class="nav-right">
-        <a href="/userReserves-form"><i class="fas fa-user-plus"></i> Meus Agendamentos</a>
+        <a href="userReserves.html"><i class="fas fa-user-plus"></i> Meus Agendamentos</a>
 
         <a href="#openmodal_menu">
-          <img id="img_menu" src="/img/profile-icon.png" alt="Perfil">
+          <img id="img_menu" src="/frontend/public/img/profile-icon.png" alt="Perfil">
           <div id="user-name">
             <p id="user-rule"></p>
           </div>
@@ -52,7 +52,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="conteudoPrincipal">
     <h1 class="fade-in">Bem-vindo ao Sistema de Agendamento</h1>
     <p class="fade-in">Selecione uma opção no menu acima para começar.</p>
 
@@ -84,6 +84,6 @@
 
   </main>
 
-  <script src="/script/index.js"></script>
+  <script src="script/index.js"></script>
 </body>
 </html>
