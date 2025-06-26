@@ -13,10 +13,10 @@ exports.getAllRooms = async (req, res) => {
 };
 
 // [GET] /room/:number - Busca uma sala pelo numero
-exports.getRoomByNumber = async (req, res) => {
+exports.getRoomByName = async (req, res) => {
     try {
       console.log("rota number chamada");
-      const salas = await Sala.findOne({ room_number: req.params.room_number });
+      const salas = await Sala.findOne({ name: req.params.name });
       console.log(salas);
       if (!salas) return res.status(404).json({ erro: 'Sala não encontrada.' });
       res.json(salas);

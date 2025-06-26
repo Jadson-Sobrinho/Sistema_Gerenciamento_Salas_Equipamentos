@@ -83,6 +83,33 @@ document.addEventListener('DOMContentLoaded', async function() {
         startCountdownFromToken(token);
     }
 
+    const form = document.getElementById('formBusca');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault(); // impede o reload da página
+    const termoBusca = document.getElementById('campoBusca').value.trim();
+
+    console.log(termoBusca);
+    
+    if (!termoBusca) {
+      alert('Digite um nome para buscar!');
+      return;
+    }
+
+    buscarRecurso(termoBusca);
+  });
+
+  function buscarRecurso(nome) {
+    console.log('Buscando recurso:', nome);
+    fetch(`${API_URL}/room/${nome}`)
+      .then(response => response.json())
+      .then(data => {
+        // exibir resultado
+        console.log(data);
+      })
+      .catch(err => console.error('Erro na busca:', err));
+  }
+
 });
 
 
