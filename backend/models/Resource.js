@@ -36,18 +36,24 @@ const salaSchema = new mongoose.Schema({
     enum: ['disponível', 'indisponível', 'manutenção'],
     default: 'disponível'
   },
-  unavailable_hours: [
-    {
+  unavailable_hours: [{
+      // Para evitar que o MongoDB crie um _id para cada horário indisponível
+      _id: false, 
+
       start: {
-        type: Date,
-        default: undefined
-      }, 
+          type: Date,
+          required: [true, 'A data de início da reserva é obrigatória.']
+      },
       end: {
-        type: Date,
-        default: undefined
+          type: Date,
+          required: [true, 'A data de término da reserva é obrigatória.']
+      },
+      reservationId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Reserve',
+          required: true
       }
-    }
-  ],
+  }],
   description: {
     type: String
   },

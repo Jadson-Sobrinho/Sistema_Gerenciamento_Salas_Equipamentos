@@ -37,16 +37,51 @@
         <input type="text" id="status" name="status" disabled />
       </div>
       <div class="form-group">
-        <label for="unavailable_hours">Horários indisponíveis</label>
-        <textarea id="unavailable_hours" name="unavailable_hours" rows="3" disabled></textarea>
+        <label>Horários Indisponíveis para o dia selecionado</label>
+        <div id="horarios-visualizacao">
+          <div class="timeline-labels">
+
+          </div>
+          <div class="timeline-container">
+            <div id="timeline-bar">
+              </div>
+          </div>
+        </div>
       </div>
       <div class="form-group">
-        <label for="start_at">Início</label>
-        <input type="datetime-local" id="start_at" name="start_at" required />
+        <label id="label-calendario" for="calendario-container">Selecione o Dia da Reserva</label>
+        <div id="calendario-container">
+          <div class="calendario-header">
+            <button type="button" id="mes-anterior" title="Mês anterior">&lt;</button>
+            <h3 id="mes-ano-atual"></h3>
+            <button type="button" id="mes-seguinte" title="Mês seguinte">&gt;</button>
+          </div>
+          <div class="calendario-dias-semana">
+            <div>Dom</div>
+            <div>Seg</div>
+            <div>Ter</div>
+            <div>Qua</div>
+            <div>Qui</div>
+            <div>Sex</div>
+            <div>Sáb</div>
+          </div>
+          <div id="calendario-corpo" class="calendario-grid-dias">
+            </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="end_at">Fim</label>
-        <input type="datetime-local" id="end_at" name="end_at" required />
+
+      <input type="hidden" id="data-selecionada-inicio" name="start_at">
+      <input type="hidden" id="data-selecionada-fim" name="end_at">
+
+      <div class="form-group-horas">
+          <div class="form-group">
+              <label for="start_time">Hora de Início</label>
+              <input type="time" id="start_time" name="start_time" required>
+          </div>
+          <div class="form-group">
+              <label for="end_time">Hora de Fim</label>
+              <input type="time" id="end_time" name="end_time" required>
+          </div>
       </div>
       <button type="submit">Cadastrar</button>
     </form>

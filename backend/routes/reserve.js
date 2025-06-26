@@ -14,6 +14,8 @@ router.patch('/:id/status', auth.authToken, auth.requireRole('Admin'), reserve.u
 
 router.patch('/:reserva_id/cancel', auth.authToken, reserve.cancelReserve);
 
-//router.get('/allReserves', reserve.getAllReserves);
+router.get('/:resource_id/data', auth.authToken, reserve.getReservesByDate);
+
+router.get('/:resource_id', auth.authToken, reserve.getReservasDoMes);
 
 module.exports = router;
