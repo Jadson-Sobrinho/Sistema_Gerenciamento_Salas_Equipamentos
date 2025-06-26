@@ -36,13 +36,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     const token = localStorage.getItem('authToken');
 
     if (!token) {
-        window.location.href = '/login-form';
+        window.location.href = '../login.html';
         return;
     }
 
     async function getUserInfo() {
         try {
-            const response = await fetch(`/auth/me`, {
+            const response = await fetch(`${API_URL}/auth/me`, {
                 headers: {
                     'authorization': 'Bearer ' + token
                 }
@@ -53,6 +53,13 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
             const userInfo = await response.json();
 
+            if (userInfo.role === 'Admin') {
+                document.querySelectorAll('.admin-link').forEach(element => {
+                    element.style.display = 'block';
+                });
+                
+            }               
+
             /*console.log(userInfo.name);*/
 
             const userName = document.getElementById('summary-title_menu');
@@ -61,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             /*console.log(userName);*/
 
             userName.innerText = userInfo.name;
-            userRule.innerText = userInfo.role;
+            userRule.innerText = userInfo.role;         
 
             return userInfo;
         } catch (error) {
@@ -76,17 +83,10 @@ document.addEventListener('DOMContentLoaded', async function() {
         startCountdownFromToken(token);
     }
 
-    const userInfo = await getUserInfo();
-    if (userInfo.role === 'Aluno') {
-        document.querySelectorAll('.admin-link').forEach(element => {
-            element.style.display = 'none';
-        });
-        
-    }
 });
 
 
 async function logout() {
     localStorage.removeItem('authToken');
-    window.location.href = '/login-form';
+    window.location.href = '../login.html';
 }

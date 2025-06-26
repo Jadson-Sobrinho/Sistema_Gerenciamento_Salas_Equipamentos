@@ -4,7 +4,7 @@ require("dotenv").config();
 
 async function connectDB() {
     try{
-        await mongoose.connect("mongodb+srv://jadson:"+ process.env.PASSWORD +"@unex.f468b.mongodb.net/?retryWrites=true&w=majority&appName=UNEX");
+        await mongoose.connect("mongodb://localhost:27017/reserve");
 
         console.log("Conectado ao banco!");
     } catch (error) {

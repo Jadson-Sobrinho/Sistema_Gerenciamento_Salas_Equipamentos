@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Enviar requisição para o endpoint de login
-      const response = await fetch(`/auth/login`, {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Redirecionar para dashboard ou outra página
         setTimeout(() => {
-          window.location.href = '/index-form';
+          window.location.href = '/frontend/src/pages/index.html';
         }, 1000);
       } else {
         // Exibir erro
